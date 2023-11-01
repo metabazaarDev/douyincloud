@@ -1,5 +1,7 @@
 import Koa from "koa";
+// @ts-ignore
 import cors from "@koa/cors";
+
 
 export default async function(ctx: Koa.Context,next: Koa.Next){
     const corsOptions = {
