@@ -1,9 +1,11 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import Router from '@koa/router'
 import Redis from 'ioredis';
 import mongoose from 'mongoose';
 import assert from "assert";
+
+import router from './config/router';
+import cors from './config/cors';
 
 // 初始化各服务的连接 redis, mongo
 async function initService() {
@@ -20,8 +22,8 @@ async function initService() {
     assert(await redis.echo('echo') === 'echo', `redis echo error`);
 
     const mongoUrl = `mongodb://${MONGO_USERNAME}:${encodeURIComponent(MONGO_PASSWORD)}@${MONGO_ADDRESS}`;
-    await mongoose.connect(mongoUrl);    
-
+    await mongoose.connect(mongoUrl); 
+    
     return {
         redis,
         mongoose,
@@ -29,72 +31,16 @@ async function initService() {
 }
 
 initService().then(async ({ redis, mongoose}) => {
-    const kittySchema = new mongoose.Schema({
-        name: String
-    });
-
-    const Kitten = mongoose.model('Kitten', kittySchema);
-
+   
     const app = new Koa();
 
-    const router = new Router();
-    router.get('/', ctx => {
-        ctx.body = `Nodejs koa demo project`;
-    }).get('/api/get_data_from_redis', async(ctx) => {
-        const key = ctx.query.key as string;
-        assert(key?.trim(), `key is required`);
-        const value = await redis.get(key);
-        if (value) {
-            ctx.body = {
-                success: true,
-                data: value,
-            }
-        } else {
-            ctx.status = 404;
-            ctx.body = {
-                success: false,
-                message: `${key} not exist`,
-            }
-        }
-    }).post('/api/set_data_to_redis', async(ctx) => {
-        const key = ctx.query.key as string;
-        const body: any = ctx.request.body;
-        const value = body.value as string;
-        assert(key?.trim(), `key is required`);
-        assert(value?.trim(), `value is required`);
-        await redis.set(key, value);
-        ctx.body = {
-            success: true,
-        }
-    }).get('/api/get_data_from_mongodb', async(ctx) => {
-        const name = ctx.query.name as string;
-        assert(name?.trim(), `name is required`);
-        const data = await Kitten.findOne({ name});
-        
-        if (data) {
-            ctx.body = {
-                success: true,
-                data: data.toJSON(),
-            }
-        } else {
-            ctx.status = 404;
-            ctx.body = {
-                success: false,
-                message: `${name} not exist`,
-            }
-        }
-    }).post('/api/set_data_to_mongodb', async(ctx) => {
-        const name = ctx.query.name as string;
-        assert(name?.trim(), `name is required`);
-
-        const kit = new Kitten({ name });
-        await kit.save();
-
-        ctx.body = {
-            success: true,
-        }
+    app.use(async (ctx, next) => {
+        ctx.redis = redis;
+        ctx.mongoose = mongoose;
+        await next();
     });
 
+    app.use(cors);
     app.use(bodyParser());
     app.use(router.routes());
 
