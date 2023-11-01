@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+package SocketMessage;
+
+enum ActionEnum{
+    JoinTeam = 0;
+    AddLike = 1;
+    AddGift = 2;
+}
+
+message SocreInfo{
+    uint64 RoundSocre = 1;
+    uint64 VictorySocre = 2;
+    uint64 WinStreakScore = 3;
+}
+
+message WinStreakInfo{
+    int32 WinCount = 1;
+}
+
+message ActionInfo{
+    int64 UserId = 1;
+    ActionEnum Action = 2;
+    int32 Value = 3;
+}
+
+message RankInfo{
+    int32 CurrentRank = 1;
+    int32 LastWeekRank = 2;
+    int32 MonthlyRank = 3;
+}
+
+message UserInfo{
+    int64 UserId = 1;
+    string UserName = 2;
+    string UserAvtar = 3;
+
+    RankInfo RankInfo = 4;
+    SocreInfo SocreInfo = 5;
+    WinStreakInfo WinStreakInfo = 6;
+}
+
+message GiftInfo{
+    int64 GiftId = 2; //todo 可能是字符串
+    int32 GiftNum = 3;
+    string GiftName = 4;
+    int64 GiftValue = 5; //单位是分
+}
+
+message LikeInfo{
+    int32 LinkCount = 1;
+}
+
+message ChatInfo{
+    string ChatText = 1;
+}
+
+message GiftMessage{
+    UserInfo UserInfo = 1;
+    GiftInfo GiftInfo = 2;
+    string MessageId = 3;
+}
+
+message LikeMessage{
+    UserInfo UserInfo = 1;
+    LikeInfo LikeInfo = 2;
+    string MessageId = 3;
+}
+
+message ChatMessage{
+    UserInfo UserInfo = 1;
+    ChatInfo ChatInfo = 2;
+    string MessageId = 3;
+}
+
+message HeartBeatMessage{
+    int32 Beat = 1;
+}
+
+message StartGameMessage{
+    string RoundId = 1;
+    repeated int32 SetupTeams = 2;
+}
+
+message GetUserMessage{
+    repeated UserInfo UserInfo = 1;
+}
+
+message ActionReportMessage{
+    string RoundId = 1;
+    repeated ActionInfo Actions = 2;
+}
+
+message FinishGameMessage{
+    string RoundId = 1;
+    int32 VictoryTeam = 2;
+    repeated UserInfo UserInfo = 3;
+}
+
+message WorldRankMessage{
+    repeated UserInfo UserInfo = 1;
+}
+
+message MessageHead{
+    int32 Seq = 1;
+    int32 Ack = 2;
+    uint64 Timestamp =3;
+    int32 Version = 4;
+
+    int32 GameCode = 5;
+    string GameVersion = 6;
+    string Platform = 7;
+    string SteamerId = 8;
+    string RoomId = 9;
+}
+
+message MessageItem{
+    string Type = 1;
+    bytes Payload = 2;
+}
+
+message MessageBody{
+    repeated MessageItem MessageList = 1;
+}
+
+message Message{
+    MessageHead Head = 1;
+    MessageBody Body = 2;
+}
