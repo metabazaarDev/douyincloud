@@ -1,4 +1,5 @@
-import request from 'request';
+import axios from "axios";
+import { error } from "console";
 /**
  * 对接开平，传入token，获取直播信息，返回roomId
  * https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/server/live/webcastinfo
@@ -22,25 +23,19 @@ interface OpenDYResponse {
   data?: WebcastInfo;
 }
 export async function getWebcastInfo(token: string) {
-  const options: request.RequiredUriUrl & request.CoreOptions = {
-    url: 'https://webcast.bytedance.com/api/webcastmate/info',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      token,
-    },
-  };
-  return await new Promise<Error | WebcastInfo>((resolve, reject) => {
-    request(options, (error: Error, response, body: OpenDYResponse) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(body.data);
-      }
-    });
-  });
+  const { data } = await axios.post<OpenDYResponse>(
+    "https://webcast.bytedance.com/api/webcastmate/info",
+    { token },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (data.data || data.errcode === 0) {
+    return data.data;
+  }
+  return {};
 }
 
 /**
