@@ -8,9 +8,9 @@ enum ActionEnum{
     AddGift = 2;
 }
 
-message SocreInfo{
-    uint64 RoundSocre = 1;
-    uint64 VictorySocre = 2;
+message ScoreInfo{
+    uint64 RoundScore = 1;
+    uint64 VictoryScore = 2;
     uint64 WinStreakScore = 3;
 }
 
@@ -40,7 +40,7 @@ message RankItem{
     int32 RankIndex = 1;
     UserInfo UserInfo = 2;
     RankInfo RankInfo = 3;
-    SocreInfo SocreInfo = 4;
+    ScoreInfo ScoreInfo = 4;
     WinStreakInfo WinStreakInfo = 5;
 }
 
