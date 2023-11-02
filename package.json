@@ -14,10 +14,11 @@
   ],
   "devDependencies": {
     "@types/koa": "^2.13.1",
+    "@types/koa__router": "^8.0.4",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-cors": "0.0.4",
-    "@types/koa__router": "^8.0.4",
     "@types/node": "^14.14.37",
+    "@types/request": "^2.48.11",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3"
   },
@@ -31,6 +32,7 @@
     "koa-easy-ws": "^2.1.0",
     "mongoose": "^6.6.5",
     "protobufjs": "^7.2.5",
+    "request": "^2.88.2",
     "ws": "^8.14.2"
   }
 }
