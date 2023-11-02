@@ -34,10 +34,14 @@ message UserInfo{
     int64 UserId = 1;
     string UserName = 2;
     string UserAvtar = 3;
+}
 
-    RankInfo RankInfo = 4;
-    SocreInfo SocreInfo = 5;
-    WinStreakInfo WinStreakInfo = 6;
+message RankItem{
+    int32 RankIndex = 1;
+    UserInfo UserInfo = 2;
+    RankInfo RankInfo = 3;
+    SocreInfo SocreInfo = 4;
+    WinStreakInfo WinStreakInfo = 5;
 }
 
 message GiftInfo{
@@ -94,11 +98,11 @@ message ActionReportMessage{
 message FinishGameMessage{
     string RoundId = 1;
     int32 VictoryTeam = 2;
-    repeated UserInfo UserInfo = 3;
+    repeated RankItem RankItem = 3;
 }
 
 message WorldRankMessage{
-    repeated UserInfo UserInfo = 1;
+    repeated RankItem RankItem = 1;
 }
 
 message MessageHead{
