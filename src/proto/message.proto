@@ -2,16 +2,16 @@ syntax = "proto3";
 
 package SocketMessage;
 
-enum ActionEnum{
+enum UserAction{
     JoinTeam = 0;
     AddLike = 1;
     AddGift = 2;
 }
 
 message ScoreInfo{
-    uint64 RoundScore = 1;
-    uint64 VictoryScore = 2;
-    uint64 WinStreakScore = 3;
+    int32 RoundScore = 1;
+    int32 VictoryScore = 2;
+    int32 WinStreakScore = 3;
 }
 
 message WinStreakInfo{
@@ -19,8 +19,8 @@ message WinStreakInfo{
 }
 
 message ActionInfo{
-    int64 UserId = 1;
-    ActionEnum Action = 2;
+    uint64 UserId = 1;
+    UserAction Action = 2;
     int32 Value = 3;
 }
 
@@ -31,7 +31,7 @@ message RankInfo{
 }
 
 message UserInfo{
-    int64 UserId = 1;
+    uint64 UserId = 1;
     string UserName = 2;
     string UserAvtar = 3;
 }
@@ -45,7 +45,7 @@ message RankItem{
 }
 
 message GiftInfo{
-    int64 GiftId = 2; //todo 可能是字符串
+    int32 GiftId = 2; //todo 可能是字符串
     int32 GiftNum = 3;
     string GiftName = 4;
     int64 GiftValue = 5; //单位是分
