@@ -2,12 +2,6 @@ syntax = "proto3";
 
 package SocketMessage;
 
-enum UserAction{
-    JoinTeam = 0;
-    AddLike = 1;
-    AddGift = 2;
-}
-
 message ScoreInfo{
     int32 RoundScore = 1;
     int32 VictoryScore = 2;
@@ -20,7 +14,7 @@ message WinStreakInfo{
 
 message ActionInfo{
     uint64 UserId = 1;
-    UserAction Action = 2;
+    int32 Action = 2; // 0 - 进入队伍 | 1 - 点赞 | 2 - 送礼 | 3 - 击杀
     int32 Value = 3;
 }
 
@@ -45,7 +39,7 @@ message RankItem{
 }
 
 message GiftInfo{
-    string GiftId = 2; //todo 可能是字符串
+    int32 GiftId = 2;
     int32 GiftNum = 3;
     string GiftName = 4;
     int64 GiftValue = 5; //单位是分
@@ -103,6 +97,10 @@ message FinishGameMessage{
 
 message WorldRankMessage{
     repeated RankItem RankItems = 1;
+}
+
+message AckMessage{
+    repeated int32 Acks = 1;
 }
 
 message MessageHead{
