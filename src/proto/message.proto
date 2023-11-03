@@ -98,11 +98,11 @@ message ActionReportMessage{
 message FinishGameMessage{
     string RoundId = 1;
     int32 VictoryTeam = 2;
-    repeated RankItem RankItem = 3;
+    repeated RankItem RankItems = 3;
 }
 
 message WorldRankMessage{
-    repeated RankItem RankItem = 1;
+    repeated RankItem RankItems = 1;
 }
 
 message MessageHead{
@@ -114,7 +114,7 @@ message MessageHead{
     int32 GameCode = 5;
     string GameVersion = 6;
     string Platform = 7;
-    string SteamerId = 8;
+    string AnchorId = 8;
     string RoomId = 9;
 }
 

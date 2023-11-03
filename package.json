@@ -1,7 +1,7 @@
 {
-  "name": "douyincloud-nodejs-koa-demo",
+  "name": "DouYinCloud-Koa",
   "version": "1.0.0",
-  "description": "Nodejs koa demo project which can be deployed on douyincloud",
+  "description": "Koa for GameServer",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
