@@ -1,3 +1,5 @@
+//protoc --cpp_out=. message.proto
+
 syntax = "proto3";
 
 package SocketMessage;
