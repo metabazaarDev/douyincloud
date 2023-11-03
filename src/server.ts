@@ -6,6 +6,7 @@ import assert from "assert";
 
 import router from './config/router';
 import cors from './config/cors';
+import protobuf from 'protobufjs' 
 
 // 初始化各服务的连接 redis, mongo
 async function initService() {
@@ -42,7 +43,7 @@ initService().then(async ({ redis, mongoose}) => {
         await next();
     });
 
-    // app.use(cors);
+    app.use(cors);
     app.use(bodyParser());
     app.use(router.routes());
     // TODO: error handler
@@ -53,5 +54,21 @@ initService().then(async ({ redis, mongoose}) => {
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });
+
+
+
+run().catch(err => console.log(err));
+
+async function run() {
+  const root = await protobuf.load('./src/proto/message.proto');
+
+  const SocreInfo = root.lookupType('SocketMessage.SocreInfo');
+  console.log(SocreInfo.verify({ RoundSocre: "not a number", VictorySocre: 30 }));  
+  const buf = SocreInfo.encode({ RoundSocre: 11, VictorySocre: 30 }).finish();
+  const obj = SocreInfo.decode(buf);
+  console.log(obj)
+}
+
+ 
 
 }).catch((error: string) => console.log("Init service  error: ", error));
