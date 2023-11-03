@@ -43,7 +43,7 @@ initService().then(async ({ redis, mongoose}) => {
         await next();
     });
 
-    app.use(cors);
+    app.use(cors());
     app.use(bodyParser());
     app.use(router.routes());
     // TODO: error handler
