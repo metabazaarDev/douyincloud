@@ -121,6 +121,9 @@ message MessageHead{
 message MessageItem{
     string Type = 1;
     bytes Payload = 2;
+
+    int32 ErrorCode = 3;
+    string ErrorMsg = 4;
 }
 
 message MessageBody{
