@@ -26,6 +26,11 @@ message RankInfo{
     int32 MonthlyRank = 3;
 }
 
+message NoticeItem{
+    string Title = 1;
+    string Content = 2;
+}
+
 message UserInfo{
     uint64 UserId = 1;
     string UserName = 2;
@@ -103,6 +108,10 @@ message WorldRankMessage{
 
 message AckMessage{
     repeated int32 Acks = 1;
+}
+
+message NoticeMessage{
+    repeated NoticeItem NoticeItems = 1;
 }
 
 message MessageHead{
