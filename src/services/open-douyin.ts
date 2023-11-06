@@ -1,5 +1,5 @@
 import axios from "axios";
-import { error } from "console";
+ 
 /**
  * 对接开平，传入token，获取直播信息，返回roomId
  * https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/server/live/webcastinfo
