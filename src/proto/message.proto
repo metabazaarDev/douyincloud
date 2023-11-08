@@ -83,8 +83,8 @@ message HeartBeatMessage{
 }
 
 message StartGameMessage{
-    string RoundId = 1;
-    repeated int32 SetupTeams = 2;
+    string RoundId = 1; //出参
+    repeated int32 SetupTeams = 2; //入参
 }
 
 message GetUserMessage{
@@ -92,18 +92,18 @@ message GetUserMessage{
 }
 
 message ActionReportMessage{
-    string RoundId = 1;
-    repeated ActionInfo Actions = 2;
+    string RoundId = 1; //入参
+    repeated ActionInfo Actions = 2;//入参
 }
 
 message FinishGameMessage{
-    string RoundId = 1;
-    int32 VictoryTeam = 2;
-    repeated RankItem RankItems = 3;
+    string RoundId = 1; //入参
+    int32 VictoryTeam = 2;//入参
+    repeated RankItem RankItems = 3;//出参
 }
 
 message WorldRankMessage{
-    repeated RankItem RankItems = 1;
+    repeated RankItem RankItems = 1;//出参
 }
 
 message AckMessage{
@@ -111,7 +111,7 @@ message AckMessage{
 }
 
 message NoticeMessage{
-    repeated NoticeItem NoticeItems = 1;
+    repeated NoticeItem NoticeItems = 1;//出参
 }
 
 message MessageHead{
@@ -128,7 +128,7 @@ message MessageHead{
 }
 
 message MessageItem{
-    string Type = 1;
+    string Type = 1; //"NoticeMessage" | "WorldRankMessage"  | "FinishGameMessage" | "ActionReportMessage"
     bytes Payload = 2;
 
     int32 ErrorCode = 3;
