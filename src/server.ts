@@ -8,6 +8,11 @@ import router from './config/router';
 import cors from './config/cors';
 import protobuf from 'protobufjs';
 
+
+import 'dotenv/config'
+console.log(process.env)
+
+
 // 初始化各服务的连接 redis, mongo
 async function initService() {
   // const {REDIS_ADDRESS, REDIS_USERNAME, REDIS_PASSWORD, MONGO_ADDRESS, MONGO_USERNAME, MONGO_PASSWORD} = process.env;
